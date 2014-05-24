@@ -15,9 +15,11 @@ TCeosClient - Component client that makes calls according to the default server 
 
 Future implementations:
 
-. Database layer with TCeosQuery component and GreyHound - https://github.com/mdbs99/Greyhound
-. REST and web broker improvements with Brook Framework - http://silvioprog.github.io/brookframework
-. Script engine for server layer
+Database layer with TCeosQuery component and GreyHound - https://github.com/mdbs99/Greyhound
+
+REST and web broker improvements with Brook Framework - http://silvioprog.github.io/brookframework
+
+Script engine for server layer
 
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
