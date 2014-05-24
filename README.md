@@ -12,3 +12,10 @@ This implements a client and server layers to an n-tier solution.
 TCeosServer - Server component to process requests JSONRPC. Compatible with all programming languages that implement requests JSONRPC.
 
 TCeosClient - Component client that makes calls according to the default server implementations.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Thanks for watch
+
+Jose Benedito - josebenedito@gmail.com
+www.jbsolucoes.net
