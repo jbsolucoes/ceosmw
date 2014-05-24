@@ -1,0 +1,91 @@
+object Form1: TForm1
+  Left = 629
+  Height = 353
+  Top = 141
+  Width = 564
+  Caption = 'Server'
+  ClientHeight = 353
+  ClientWidth = 564
+  LCLVersion = '1.2.2.0'
+  object Button1: TButton
+    Left = 104
+    Height = 25
+    Top = 5
+    Width = 75
+    Caption = 'Start'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 192
+    Height = 25
+    Top = 5
+    Width = 75
+    Caption = 'Stop'
+    Enabled = False
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 313
+    Top = 40
+    Width = 564
+    Align = alBottom
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -13
+    Font.Name = 'Courier New'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    ParentFont = False
+    ScrollBars = ssAutoVertical
+    TabOrder = 2
+  end
+  object Button3: TButton
+    Left = 480
+    Height = 25
+    Top = 5
+    Width = 75
+    Caption = 'Clear'
+    OnClick = Button3Click
+    TabOrder = 3
+  end
+  object cbxVerbose: TCheckBox
+    Left = 282
+    Height = 19
+    Top = 13
+    Width = 62
+    Caption = 'Verbose'
+    Checked = True
+    State = cbChecked
+    TabOrder = 4
+  end
+  object Label1: TLabel
+    Left = 10
+    Height = 15
+    Top = 12
+    Width = 22
+    Caption = 'Port'
+    ParentColor = False
+  end
+  object sePort: TSpinEdit
+    Left = 38
+    Height = 23
+    Top = 9
+    Width = 58
+    MaxValue = 9999
+    MinValue = 81
+    TabOrder = 5
+    Value = 8080
+  end
+  object CeosServer1: TCeosServer
+    OnRequestError = CeosServer1RequestError
+    OnException = CeosServer1Exception
+    OnRequest = CeosServer1Request
+    OnStart = CeosServer1Start
+    OnStop = CeosServer1Stop
+    left = 184
+    top = 120
+  end
+end

@@ -1,0 +1,7 @@
+C:\projetos\Ceos\CeosMW\demos\Client\client.exe 
+Heap dump by heaptrc unit
+1734 memory blocks allocated : 1605839/1609944
+1734 memory blocks freed     : 1605839/1609944
+0 unfreed memory blocks : 0
+True heap size : 655360 (112 used in System startup)
+True free heap : 655248
