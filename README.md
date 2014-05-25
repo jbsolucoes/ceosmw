@@ -32,6 +32,8 @@ https://www.youtube.com/watch?v=jfKfoqRxE6E
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-Thanks for watch
+Thanks for Silvio Clecio (Brook Framework), Marcos Douglas (Greyhound) and Lazarus/FPC brazilian community!
+
+
 
 Jose Benedito - josebenedito@gmail.com - www.jbsolucoes.net
