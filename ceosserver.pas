@@ -197,6 +197,9 @@ begin
       if assigned(OnRequest) then
         OnRequest(Sender,ceosRequest,ceosResponse);
 
+      if not assigned(ceosResponse) then
+        ceosResponse := JSONRPCResult(TJSONString.create(MSG_NO_RESPONSE),ceosRequest.ID);
+
     except on e:exception do
       if Assigned(OnException) then
         OnRequestError(Sender,e,ceosResponse)

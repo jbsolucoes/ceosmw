@@ -80,6 +80,7 @@ object Form1: TForm1
     Value = 8080
   end
   object CeosServer1: TCeosServer
+    Port = 8088
     OnRequestError = CeosServer1RequestError
     OnException = CeosServer1Exception
     OnRequest = CeosServer1Request

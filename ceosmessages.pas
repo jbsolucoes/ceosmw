@@ -27,6 +27,8 @@ resourcestring
 
     ERROR_INVALID_QUERY       = 'Invalid Query.';
 
+    MSG_NO_RESPONSE           = 'No response assigned in server.';
+
 implementation
 
 end.
