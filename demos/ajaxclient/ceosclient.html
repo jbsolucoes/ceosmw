@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <script type="text/javascript" src="jquery-2.1.1.min.js"></script>	
+</head>
+<body>
+
+<script>
+
+    function jsonrpc(){
+    
+    $.ajax({
+            type: "POST",
+            url: $("#hosturl").val(),
+            data: $("#jsoncontent").val(), 
+            success: function(result, textStatus, XMLHttpRequest) {
+						 $("textarea#jsonresult").val(XMLHttpRequest.responseText);
+                     },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded'
+    });
+	}
+
+</script>
+
+<font face="Tahoma">
+<h2>CEOS Client Demo</H2>
+<font size="2">
+
+Host&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" id="hosturl" size=100 value="http://localhost:8088"><br>
+Content (JSON RPC 2.0)<br>
+<textarea id="jsoncontent" rows=4 cols=120>{"jsonrpc": "2.0", "method": "Test", "params": ["MyArg1"], "id": 1}</textarea><br>
+<button onclick="jsonrpc()">Run</button>
+
+<p>
+Result<br>
+<textarea id="jsonresult" rows=8 cols=120></textarea>
+
+<p>
+</font>
+</font>
+</body>
+</html>
