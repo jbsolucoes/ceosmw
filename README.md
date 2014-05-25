@@ -11,6 +11,16 @@ beta 0.0.1
 
 **TCeosClient** - Component client that makes calls according to the server implementations.
 
+How install
+https://www.youtube.com/watch?v=qZw51zr9OUk
+
+Server Demo
+https://www.youtube.com/watch?v=dZAcx66-t3w
+
+Client Demo
+https://www.youtube.com/watch?v=jfKfoqRxE6E
+
+
 **Future implementations**
 
 * Database layer with TCeosQuery component and GreyHound - https://github.com/mdbs99/Greyhound
