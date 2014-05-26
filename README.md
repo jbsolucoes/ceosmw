@@ -22,6 +22,8 @@ https://www.youtube.com/watch?v=dZAcx66-t3w
 Client Demo
 https://www.youtube.com/watch?v=jfKfoqRxE6E
 
+Ajax client Demo
+https://www.youtube.com/watch?v=SKnOD8D3UAA
 
 **Future implementations**
 
