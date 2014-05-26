@@ -131,7 +131,8 @@
       <CompilerMessages>
         <MsgFileName Value=""/>
       </CompilerMessages>
-      <CustomOptions Value="-dDEBUG"/>
+      <CustomOptions Value="-dDEBUG
+-dUseCThreads"/>
       <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>

@@ -19,3 +19,24 @@ Heap dump by heaptrc unit
 0 unfreed memory blocks : 0
 True heap size : 655360 (112 used in System startup)
 True free heap : 655248
+C:\projetos\Ceos\ceosmw\demos\client\client.exe 
+Heap dump by heaptrc unit
+1786 memory blocks allocated : 1589673/1593752
+1786 memory blocks freed     : 1589673/1593752
+0 unfreed memory blocks : 0
+True heap size : 655360 (112 used in System startup)
+True free heap : 655248
+C:\projetos\Ceos\ceosmw\demos\client\client.exe 
+Heap dump by heaptrc unit
+1981 memory blocks allocated : 1592661/1597104
+1981 memory blocks freed     : 1592661/1597104
+0 unfreed memory blocks : 0
+True heap size : 655360 (112 used in System startup)
+True free heap : 655248
+C:\projetos\Ceos\ceosmw\demos\client\client.exe 
+Heap dump by heaptrc unit
+2687 memory blocks allocated : 1620354/1626656
+2687 memory blocks freed     : 1620354/1626656
+0 unfreed memory blocks : 0
+True heap size : 655360 (112 used in System startup)
+True free heap : 655248

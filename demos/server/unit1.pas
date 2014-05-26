@@ -81,10 +81,13 @@ procedure TForm1.CeosServer1Request(Sender: TObject;
   const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent);
 var
   joStr: TJSONData;
+  str: string;
 begin
   Log(ARequest.AsJSON);
 
-  joStr := TJSONString.Create('JBS');
+  str := 'JBS';
+
+  joStr := TJSONString.Create(str);
 
   AResponse := JSONRPCResult(joStr, ARequest.ID);
 end;
