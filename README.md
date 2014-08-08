@@ -25,6 +25,9 @@ https://www.youtube.com/watch?v=jfKfoqRxE6E
 Ajax client Demo
 https://www.youtube.com/watch?v=SKnOD8D3UAA
 
+Wiki
+https://github.com/jbsolucoes/ceosmw/wiki
+
 **Future implementations**
 
 * Database layer with TCeosQuery component and GreyHound - https://github.com/mdbs99/Greyhound
