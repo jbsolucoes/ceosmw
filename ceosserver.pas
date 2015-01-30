@@ -282,7 +282,8 @@ constructor THTTPServerThread.Create(APort: word;
   const OnRequest: THTTPServerRequestHandler);
 begin
   FServer := TFPHTTPServer.Create(nil);
-  FServer.Port := APort;
+  FServer.Port      := APort;
+  FServer.Threaded  := true;
   FServer.OnRequest := OnRequest;
 
   inherited Create(False);
