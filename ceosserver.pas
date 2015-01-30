@@ -248,7 +248,7 @@ begin
     if Assigned(OnStart) then
       OnStart(Self);
 
-    //imporve Active state by FThrdHTTPServer.FServer state
+    { TODO -ojbsolucoes -cimprovements : Improve Active state by FThrdHTTPServer.FServer state }
     FActive := true;
   except on e:exception do
     if Assigned(OnException) then
