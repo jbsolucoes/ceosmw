@@ -4,6 +4,7 @@
     <PathDelim Value="\"/>
     <Name Value="CeosMW"/>
     <AddToProjectUsesSection Value="True"/>
+    <Author Value="josebenedito@gmail.com"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
@@ -17,7 +18,10 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Version Release="1"/>
+    <Description Value="CeosMW - JSONRPC n-tier middleware
+https://github.com/jbsolucoes/ceosmw"/>
+    <License Value="This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
+    <Version Release="2"/>
     <Files Count="3">
       <Item1>
         <Filename Value="ceosclient.pas"/>
