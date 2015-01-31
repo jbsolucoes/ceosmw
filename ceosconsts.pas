@@ -23,6 +23,8 @@ uses
 const
   JSONRPC_VERSION         : string = '2.0';
   JSON_HEADER_CONTENT_TYPE: string = 'Content-type: application/json; charset=UTF-8';
+
+  CEOS_VERSION            : string  = '0.0.2';
   CEOS_DEFAULT_PORT       : integer = 8088;
 
   ERR_INTERNAL_ERROR      = -32000;
