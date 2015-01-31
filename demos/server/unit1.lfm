@@ -6,7 +6,7 @@ object Form1: TForm1
   Caption = 'Server'
   ClientHeight = 353
   ClientWidth = 564
-  LCLVersion = '1.2.2.0'
+  LCLVersion = '1.2.6.0'
   object Button1: TButton
     Left = 104
     Height = 25
@@ -53,9 +53,9 @@ object Form1: TForm1
   end
   object cbxVerbose: TCheckBox
     Left = 282
-    Height = 19
+    Height = 22
     Top = 13
-    Width = 62
+    Width = 70
     Caption = 'Verbose'
     Checked = True
     State = cbChecked
@@ -63,15 +63,15 @@ object Form1: TForm1
   end
   object Label1: TLabel
     Left = 10
-    Height = 15
+    Height = 17
     Top = 12
-    Width = 22
+    Width = 23
     Caption = 'Port'
     ParentColor = False
   end
   object sePort: TSpinEdit
     Left = 38
-    Height = 23
+    Height = 27
     Top = 9
     Width = 58
     MaxValue = 9999
@@ -80,9 +80,9 @@ object Form1: TForm1
     Value = 8080
   end
   object CeosServer1: TCeosServer
-    Port = 8088
     OnRequestError = CeosServer1RequestError
     OnException = CeosServer1Exception
+    OnGetRequest = CeosServer1GetRequest
     OnRequest = CeosServer1Request
     OnStart = CeosServer1Start
     OnStop = CeosServer1Stop
