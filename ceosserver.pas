@@ -1,7 +1,7 @@
 {*****************************************************************}
 { ceosserver is part of Ceos middleware/n-tier JSONRPC components }
 {                                                                 }
-{ Version beta 0.0.1                                              }
+{ Beta version                                                    }
 {                                                                 }
 { This library is distributed in the hope that it will be useful, }
 { but WITHOUT ANY WARRANTY; without even the implied warranty of  }
@@ -24,6 +24,7 @@ uses
 type
   THTTPServerThread = class;
 
+  TOnCeosGetRequest = procedure(Sender: TObject; const ARequest: TFPHTTPConnectionRequest; var AResponse: TFPHTTPConnectionResponse) of Object;
   TOnCeosRequest = procedure(Sender: TObject; const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent) of Object;
   TOnCeosRequestError = procedure(Sender: TObject; const E: exception; var AResponse: TCeosResponseContent) of Object;
   TOnCeosException = procedure(Sender: TObject; const E: exception) of Object;
@@ -33,6 +34,7 @@ type
   TCeosServer = class(TComponent)
   private
     FActive: boolean;
+    FOnGetRequest: TOnCeosGetRequest;
     FPort: integer;
     FOnRequestError: TOnCeosRequestError;
     FOnException: TOnCeosException;
@@ -40,9 +42,12 @@ type
     FOnStart: TNotifyEvent;
     FOnStop: TNotifyEvent;
     FThrdHTTPServer: THTTPServerThread;
+    FThreaded: boolean;
     function IsPortStored: boolean;
     procedure SetPort(AValue: integer);
     procedure SetHeader(var AResponse: TFPHTTPConnectionResponse);
+    procedure DoOnGetRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
+        var AResponse: TFPHTTPConnectionResponse);
     procedure DoOnRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
         var AResponse: TFPHTTPConnectionResponse);
     { Private declarations }
@@ -60,9 +65,11 @@ type
   published
     { Published declarations }
     property Port: integer read FPort write SetPort stored IsPortStored default 8080;
+    property Threaded: boolean read FThreaded write FThreaded default true;
 
     property OnRequestError: TOnCeosRequestError read FOnRequestError write FOnRequestError;
     property OnException: TOnCeosException read FOnException write FOnException;
+    property OnGetRequest: TOnCeosGetRequest read FOnGetRequest write FOnGetRequest;
     property OnRequest: TOnCeosRequest read FOnRequest write FOnRequest;
     property OnStart: TNotifyEvent read FOnStart write FOnStart;
     property OnStop: TNotifyEvent read FOnStop write FOnStop;
@@ -75,7 +82,7 @@ type
   private
     FServer: TFPHTTPServer;
   public
-    constructor Create(APort: word; const OnRequest: THTTPServerRequestHandler);
+    constructor Create(APort: word; const AThreaded: boolean; const OnRequest: THTTPServerRequestHandler);
     procedure Execute; override;
     procedure DoTerminate; override;
     property Server: TFPHTTPServer read FServer;
@@ -174,6 +181,30 @@ begin
   AResponse.CustomHeaders.Add(JSON_HEADER_CONTENT_TYPE);
 end;
 
+procedure TCeosServer.DoOnGetRequest(Sender: TObject;
+  var ARequest: TFPHTTPConnectionRequest;
+  var AResponse: TFPHTTPConnectionResponse);
+begin
+  try
+    if assigned(OnGetRequest) then
+    begin
+      AResponse.Code := 200;
+      OnGetRequest(Sender, ARequest, AResponse) ;
+      exit;
+    end
+    else
+      AResponse.Code    := 404;
+
+  except on e:exception do
+    begin
+      if Assigned(OnException) then
+        OnException(Sender,e);
+
+      AResponse.Code := 500;
+    end;
+  end;
+end;
+
 procedure TCeosServer.DoOnRequest(Sender: TObject;
   var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
@@ -185,8 +216,12 @@ begin
   ceosRequest   := nil;
   ceosResponse  := nil;
 
-  if ARequest.Method <> 'POST' then
+  if ARequest.Method = 'GET' then
+  begin
+    DoOnGetRequest(Sender, ARequest, AResponse);
+
     exit;
+  end;
 
   SetHeader(AResponse);
 
@@ -243,7 +278,7 @@ end;
 procedure TCeosServer.Start;
 begin
   try
-    FThrdHTTPServer := THTTPServerThread.Create(Port, @DoOnRequest);
+    FThrdHTTPServer := THTTPServerThread.Create(Port, Threaded, @DoOnRequest);
 
     if Assigned(OnStart) then
       OnStart(Self);
@@ -278,12 +313,12 @@ end;
 
 { THTTPServerThread }
 
-constructor THTTPServerThread.Create(APort: word;
+constructor THTTPServerThread.Create(APort: word; const AThreaded: boolean;
   const OnRequest: THTTPServerRequestHandler);
 begin
   FServer := TFPHTTPServer.Create(nil);
   FServer.Port      := APort;
-  FServer.Threaded  := true;
+  FServer.Threaded  := AThreaded;
   FServer.OnRequest := OnRequest;
 
   inherited Create(False);
