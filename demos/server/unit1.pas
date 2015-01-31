@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ceosserver, fpjson, jsonparser, ceostypes;
+  Spin, ceosserver, fpjson, jsonparser, ceostypes, fphttpserver;
 
 type
 
@@ -25,6 +25,9 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure CeosServer1Exception(Sender: TObject; const E: exception);
+    procedure CeosServer1GetRequest(Sender: TObject;
+      const ARequest: TFPHTTPConnectionRequest;
+      var AResponse: TFPHTTPConnectionResponse);
     procedure CeosServer1Request(Sender: TObject;
       const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent);
     procedure CeosServer1RequestError(Sender: TObject; const E: exception;
@@ -75,6 +78,15 @@ end;
 procedure TForm1.CeosServer1Exception(Sender: TObject; const E: exception);
 begin
   Log(E.message);
+end;
+
+procedure TForm1.CeosServer1GetRequest(Sender: TObject;
+  const ARequest: TFPHTTPConnectionRequest;
+  var AResponse: TFPHTTPConnectionResponse);
+begin
+  Log(format('Get Request on %s',[ARequest.URI]));
+
+  AResponse.Content := format('CeosMW %s - CeosServer Demo (URI: %s)',[CEOS_VERSION, ARequest.URI]);
 end;
 
 procedure TForm1.CeosServer1Request(Sender: TObject;
