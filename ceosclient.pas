@@ -1,7 +1,7 @@
 {*****************************************************************}
 { ceosclient is part of Ceos middleware/n-tier JSONRPC components }
 {                                                                 }
-{ Version beta 0.0.1                                              }
+{ Beta version                                                    }
 {                                                                 }
 { This library is distributed in the hope that it will be useful, }
 { but WITHOUT ANY WARRANTY; without even the implied warranty of  }
