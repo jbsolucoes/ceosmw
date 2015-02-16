@@ -1,0 +1,86 @@
+object Form1: TForm1
+  Left = 495
+  Height = 560
+  Top = 127
+  Width = 719
+  Caption = 'Ceos Client Dataset Demo'
+  ClientHeight = 560
+  ClientWidth = 719
+  LCLVersion = '1.2.6.0'
+  object Button1: TButton
+    Left = 432
+    Height = 25
+    Top = 40
+    Width = 75
+    Caption = 'OK'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Left = 0
+    Height = 168
+    Top = 72
+    Width = 719
+    Anchors = [akTop, akLeft, akRight]
+    TabOrder = 1
+  end
+  object edFunc: TEdit
+    Left = 80
+    Height = 21
+    Top = 15
+    Width = 112
+    TabOrder = 2
+    Text = 'QuerySQL'
+  end
+  object Label1: TLabel
+    Left = 20
+    Height = 13
+    Top = 17
+    Width = 41
+    Caption = 'Function'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 22
+    Height = 13
+    Top = 44
+    Width = 30
+    Caption = 'Param'
+    ParentColor = False
+  end
+  object edParam: TEdit
+    Left = 80
+    Height = 21
+    Top = 43
+    Width = 344
+    TabOrder = 3
+    Text = 'select * from users where codigo < 10'
+  end
+  object DBGrid2: TDBGrid
+    Left = 0
+    Height = 312
+    Top = 248
+    Width = 719
+    Align = alBottom
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <>
+    DataSource = Datasource1
+    TabOrder = 4
+  end
+  object Datasource1: TDataSource
+    DataSet = BufDataset1
+    left = 376
+    top = 256
+  end
+  object CeosClient1: TCeosClient
+    Host = 'http://localhost:8080'
+    left = 216
+    top = 258
+  end
+  object BufDataset1: TBufDataset
+    FieldDefs = <>
+    left = 304
+    top = 256
+  end
+end

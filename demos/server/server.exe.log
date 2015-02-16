@@ -1,7 +1,0 @@
-C:\projetos\Ceos\CeosMW\demos\Server\server.exe 
-Heap dump by heaptrc unit
-1273 memory blocks allocated : 1562193/1564848
-1273 memory blocks freed     : 1562193/1564848
-0 unfreed memory blocks : 0
-True heap size : 655360 (112 used in System startup)
-True free heap : 655248

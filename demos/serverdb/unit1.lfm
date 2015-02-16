@@ -7,6 +7,7 @@ object Form1: TForm1
   ClientHeight = 506
   ClientWidth = 925
   OnClose = FormClose
+  OnCreate = FormCreate
   LCLVersion = '1.2.6.0'
   object btnStart: TButton
     Left = 104
@@ -107,7 +108,6 @@ object Form1: TForm1
     TabOrder = 7
   end
   object CeosServer1: TCeosServer
-    Port = 8088
     OnRequestError = CeosServer1RequestError
     OnException = CeosServer1Exception
     OnGetRequest = CeosServer1GetRequest
@@ -116,5 +116,41 @@ object Form1: TForm1
     OnStop = CeosServer1Stop
     left = 184
     top = 120
+  end
+  object DatasetDemo: TBufDataset
+    FieldDefs = <>
+    left = 305
+    top = 125
+    object DatasetDemoCODIGO: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'codigo'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object DatasetDemoNOME: TStringField
+      DisplayWidth = 50
+      FieldKind = fkData
+      FieldName = 'nome'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 50
+    end
+    object DatasetDemoIDADE: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'idade'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
 end

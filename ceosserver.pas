@@ -44,12 +44,14 @@ type
     FThrdHTTPServer: THTTPServerThread;
     FThreaded: boolean;
     function IsPortStored: boolean;
+    function IsThreadedStored: boolean;
     procedure SetPort(AValue: integer);
     procedure SetHeader(var AResponse: TFPHTTPConnectionResponse);
     procedure DoOnGetRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
         var AResponse: TFPHTTPConnectionResponse);
     procedure DoOnRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
         var AResponse: TFPHTTPConnectionResponse);
+    procedure SetThreaded(AValue: boolean);
     { Private declarations }
   protected
     { Protected declarations }
@@ -65,7 +67,7 @@ type
   published
     { Published declarations }
     property Port: integer read FPort write SetPort stored IsPortStored default 8080;
-    property Threaded: boolean read FThreaded write FThreaded default true;
+    property Threaded: boolean read FThreaded write SetThreaded stored IsThreadedStored  default true;
 
     property OnRequestError: TOnCeosRequestError read FOnRequestError write FOnRequestError;
     property OnException: TOnCeosException read FOnException write FOnException;
@@ -81,11 +83,16 @@ type
   THTTPServerThread = class(TThread)
   private
     FServer: TFPHTTPServer;
+    FOnException: TOnCeosException;
+    FActive: boolean;
   public
-    constructor Create(APort: word; const AThreaded: boolean; const OnRequest: THTTPServerRequestHandler);
+    constructor Create(APort: word; const AThreaded: boolean;
+        const AOnRequest: THTTPServerRequestHandler; const AOnException: TOnCeosException);
     procedure Execute; override;
     procedure DoTerminate; override;
+    property Active: boolean read FActive write FActive;
     property Server: TFPHTTPServer read FServer;
+    property OnException: TOnCeosException read FOnException write FOnException;
   end;
 
   //Do Parse of Request content
@@ -105,14 +112,11 @@ procedure DoParseRequest(var ARequest: TCeosRequestContent;
   AJSONString: TJSONStringType);
 var
   parser: TJSONParser;
-  parsed: TJSONData;
 begin
   parser := TJSONParser.Create(AJSONString);
   try
-    parsed := parser.Parse;
-
     try
-      ARequest := TCeosRequestContent(parsed as TJSONObject);
+      ARequest := TCeosRequestContent(parser.Parse as TJSONObject);
     except on e:exception do
       begin
         ARequest := nil;
@@ -134,8 +138,6 @@ begin
   joResult.Add('jsonrpc',JSONRPC_VERSION);
   joResult.Add('result',AResult);
   joResult.Add('id',AID);
-
-  result := joResult;
 end;
 
 function JSONRPCError(const ACode: integer; const AMessage: string; AID: integer = -1): TCeosResponseContent;
@@ -167,6 +169,12 @@ function TCeosServer.IsPortStored: boolean;
 begin
   result := true;
 end;
+
+function TCeosServer.IsThreadedStored: boolean;
+begin
+  result := true;
+end;
+
 
 procedure TCeosServer.SetPort(AValue: integer);
 begin
@@ -214,7 +222,7 @@ var
   iID: integer;
 begin
   ceosRequest   := nil;
-  ceosResponse  := nil;
+  ceosResponse  := TCeosResponseContent.Create;
 
   if ARequest.Method = 'GET' then
   begin
@@ -260,11 +268,17 @@ begin
   end;
 end;
 
+procedure TCeosServer.SetThreaded(AValue: boolean);
+begin
+  FThreaded := AValue;
+end;
+
 constructor TCeosServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
-  FPort := CEOS_DEFAULT_PORT;
+  FPort     := CEOS_DEFAULT_PORT;
+  FThreaded := true;
 end;
 
 destructor TCeosServer.Destroy;
@@ -278,13 +292,13 @@ end;
 procedure TCeosServer.Start;
 begin
   try
-    FThrdHTTPServer := THTTPServerThread.Create(Port, Threaded, @DoOnRequest);
+    FThrdHTTPServer := THTTPServerThread.Create(Port, Threaded, @DoOnRequest, OnException);
 
-    if Assigned(OnStart) then
+    FActive := FThrdHTTPServer.Active;
+
+    if FActive and Assigned(OnStart) then
       OnStart(Self);
 
-    { TODO -ojbsolucoes -cimprovements : Improve Active state by FThrdHTTPServer.FServer state }
-    FActive := true;
   except on e:exception do
     if Assigned(OnException) then
       OnException(Self,e)
@@ -314,12 +328,16 @@ end;
 { THTTPServerThread }
 
 constructor THTTPServerThread.Create(APort: word; const AThreaded: boolean;
-  const OnRequest: THTTPServerRequestHandler);
+  const AOnRequest: THTTPServerRequestHandler; const AOnException: TOnCeosException);
 begin
   FServer := TFPHTTPServer.Create(nil);
+  FServer.Active    := false;
   FServer.Port      := APort;
   FServer.Threaded  := AThreaded;
-  FServer.OnRequest := OnRequest;
+  FServer.OnRequest := AOnRequest;
+
+  FActive := true;
+  OnException       := AOnException;
 
   inherited Create(False);
 end;
@@ -327,7 +345,18 @@ end;
 procedure THTTPServerThread.Execute;
 begin
   try
-    FServer.Active := True;
+    try
+      FServer.Active := True;
+    except on e:exception do
+      begin
+        FActive := false;
+
+        FServer.Active := false;
+
+        if assigned(OnException) then
+          OnException(Self,e);
+      end;
+    end;
   finally
     FreeAndNil(FServer);
   end;

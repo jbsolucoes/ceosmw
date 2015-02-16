@@ -1,0 +1,213 @@
+object frmmain: Tfrmmain
+  Left = 292
+  Height = 249
+  Top = 155
+  Width = 311
+  Caption = 'CeosMW StressTest'
+  ClientHeight = 249
+  ClientWidth = 311
+  LCLVersion = '1.2.6.0'
+  object Button1: TButton
+    Left = 149
+    Height = 25
+    Top = 97
+    Width = 75
+    Caption = 'Test'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object seQtde: TSpinEdit
+    Left = 39
+    Height = 21
+    Top = 97
+    Width = 89
+    MaxValue = 100000
+    TabOrder = 1
+    Value = 1000
+  end
+  object lblOK: TLabel
+    Left = 40
+    Height = 13
+    Top = 144
+    Width = 6
+    Caption = '0'
+    ParentColor = False
+  end
+  object lblNOK: TLabel
+    Left = 144
+    Height = 13
+    Top = 146
+    Width = 6
+    Caption = '0'
+    ParentColor = False
+  end
+  object lblCount: TLabel
+    Left = 254
+    Height = 13
+    Top = 146
+    Width = 6
+    Caption = '0'
+    ParentColor = False
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 13
+    Top = 145
+    Width = 18
+    Caption = 'OK:'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 104
+    Height = 13
+    Top = 146
+    Width = 25
+    Caption = 'NOK:'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 208
+    Height = 13
+    Top = 145
+    Width = 33
+    Caption = 'Count:'
+    ParentColor = False
+  end
+  object edHost: TEdit
+    Left = 40
+    Height = 21
+    Top = 69
+    Width = 204
+    TabOrder = 2
+    Text = 'http://localhost:88'
+  end
+  object edid: TEdit
+    Left = 264
+    Height = 21
+    Top = 71
+    Width = 40
+    Alignment = taRightJustify
+    TabOrder = 3
+    Text = '1'
+  end
+  object Label4: TLabel
+    Left = 248
+    Height = 13
+    Top = 71
+    Width = 11
+    Caption = 'ID'
+    ParentColor = False
+  end
+  object Label5: TLabel
+    Left = 9
+    Height = 13
+    Top = 215
+    Width = 26
+    Caption = 'Time:'
+    ParentColor = False
+  end
+  object lbltime: TLabel
+    Left = 46
+    Height = 1
+    Top = 215
+    Width = 1
+    ParentColor = False
+  end
+  object Label6: TLabel
+    Left = 9
+    Height = 13
+    Top = 167
+    Width = 28
+    Caption = 'Start:'
+    ParentColor = False
+  end
+  object Label7: TLabel
+    Left = 9
+    Height = 13
+    Top = 191
+    Width = 26
+    Caption = 'Stop:'
+    ParentColor = False
+  end
+  object lblstart: TLabel
+    Left = 40
+    Height = 1
+    Top = 167
+    Width = 1
+    ParentColor = False
+  end
+  object lblstop: TLabel
+    Left = 40
+    Height = 1
+    Top = 191
+    Width = 1
+    ParentColor = False
+  end
+  object Button2: TButton
+    Left = 229
+    Height = 25
+    Top = 97
+    Width = 75
+    Caption = 'Stop'
+    OnClick = Button2Click
+    TabOrder = 4
+  end
+  object edContent: TEdit
+    Left = 64
+    Height = 21
+    Top = 40
+    Width = 240
+    TabOrder = 5
+    Text = 'StressTest'
+  end
+  object Label8: TLabel
+    Left = 11
+    Height = 13
+    Top = 40
+    Width = 39
+    Caption = 'Content'
+    ParentColor = False
+  end
+  object Label9: TLabel
+    Left = 11
+    Height = 13
+    Top = 69
+    Width = 22
+    Caption = 'Host'
+    ParentColor = False
+  end
+  object Label10: TLabel
+    Left = 11
+    Height = 13
+    Top = 97
+    Width = 22
+    Caption = 'Calls'
+    ParentColor = False
+  end
+  object Label11: TLabel
+    Left = 10
+    Height = 13
+    Top = 9
+    Width = 36
+    Caption = 'Method'
+    ParentColor = False
+  end
+  object edMethod: TEdit
+    Left = 64
+    Height = 21
+    Top = 8
+    Width = 240
+    TabOrder = 6
+    Text = 'MyMethod'
+  end
+  object cbSynchronize: TCheckBox
+    Left = 9
+    Height = 17
+    Top = 124
+    Width = 78
+    Caption = 'Synchronize'
+    Checked = True
+    State = cbChecked
+    TabOrder = 7
+  end
+end

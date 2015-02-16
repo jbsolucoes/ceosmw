@@ -45,11 +45,13 @@ type
   { TCeosResponseContent }
 
   TCeosResponseContent = class(TJSONObject)
-    public
+    private
       function GetID: integer;
       function GetResult: TJSONData;
       procedure SetID(AValue: integer);
       procedure SetResult(AValue: TJSONData);
+    public
+      procedure SetResultContent(const AResult: TJSONData; const AID: integer);
 
       destructor Destroy; override;
   end;
@@ -170,6 +172,16 @@ begin
 
   TJSONObject(Self).Add('result',AValue as TJSONObject);
   {$WARNINGS ON}
+end;
+
+procedure TCeosResponseContent.SetResultContent(const AResult: TJSONData;
+  const AID: integer);
+begin
+  Self.Clear;
+
+  Self.Add('jsonrpc',JSONRPC_VERSION);
+  Self.Add('result',AResult);
+  Self.Add('id',AID);
 end;
 
 destructor TCeosResponseContent.Destroy;

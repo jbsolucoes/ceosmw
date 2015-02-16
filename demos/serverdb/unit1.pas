@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin, ComCtrls, ceosserver, fpjson, jsonparser, ceostypes, fphttpserver;
+  Spin, ComCtrls, ceosserver, fpjson, jsonparser, ceostypes,
+  fphttpserver, db, BufDataset;
 
 type
 
@@ -16,9 +17,13 @@ type
     btnStart: TButton;
     btnStop: TButton;
     btnClear: TButton;
+    DatasetDemo: TBufDataset;
     cbxRequestsCount: TCheckBox;
     CeosServer1: TCeosServer;
     cbxVerbose: TCheckBox;
+    DatasetDemoCODIGO: TLongintField;
+    DatasetDemoIDADE: TLongintField;
+    DatasetDemoNOME: TStringField;
     Label1: TLabel;
     Memo1: TMemo;
     sePort: TSpinEdit;
@@ -37,11 +42,14 @@ type
     procedure CeosServer1Start(Sender: TObject);
     procedure CeosServer1Stop(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
     { private declarations }
     RequestsCount: integer;
+    procedure CreateDatasetDemo;
   public
     { public declarations }
+
     procedure Log(msg: string);
   end;
 
@@ -50,7 +58,7 @@ var
 
 implementation
 
-uses ceosconsts, ceosmessages;
+uses ceosconsts, ceosmessages, jsonlib;
 
 {$R *.lfm}
 
@@ -61,6 +69,8 @@ begin
   ceosserver1.port := sePort.value;
 
   ceosserver1.start;
+
+  CreateDatasetDemo;
 
   btnStart.enabled := not ceosserver1.Active;
   btnStop.enabled := ceosserver1.Active;
@@ -106,15 +116,16 @@ procedure TForm1.CeosServer1Request(Sender: TObject;
   const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent);
 var
   joStr: TJSONData;
-const
-  str: string = 'SERVER RESPONSE';
+  jsonDataset: string;
 begin
   if cbxVerbose.checked then
     Log(ARequest.AsJSON);
 
-  joStr := TJSONString.Create(str);
+  jsonDataset := DataSetToJSON(DatasetDemo);
 
-  AResponse.SetResultContent(joStr, ARequest.ID);
+  joStr := TJSONString.Create(jsonDataset);
+
+  AResponse.SetResultContent(jostr, ARequest.ID);
 
   if cbxRequestsCount.checked then
   begin
@@ -152,6 +163,29 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   btnStop.Click;;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.CreateDatasetDemo;
+var
+  i: integer;
+begin
+  DatasetDemo.CreateDataset;
+
+  for i := 0 to 30 do
+  begin
+    randomize;
+
+    DatasetDemo.Append;
+    DatasetDemoCODIGO.value := i;
+    DatasetDemoNOME.value   := format('CLIENTE %d',[i]);
+    DatasetDemoIDADE.value  := random(50);
+    DatasetDemo.post;
+  end;
 end;
 
 procedure TForm1.Log(msg: string);
