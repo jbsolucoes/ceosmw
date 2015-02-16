@@ -28,18 +28,12 @@ https://www.youtube.com/watch?v=SKnOD8D3UAA
 Wiki
 https://github.com/jbsolucoes/ceosmw/wiki
 
-**Future implementations**
 
-* Database layer with TCeosQuery component and GreyHound - https://github.com/mdbs99/Greyhound
-
-* REST and web broker improvements with Brook Framework - http://silvioprog.github.io/brookframework
-
-* Script engine for server layer
 
 This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-Thanks for Silvio Clecio (Brook Framework), Marcos Douglas (Greyhound) and Lazarus/FPC brazilian community!
+Thanks for Silvio Clecio (Brook Framework), Marcos Douglas (Greyhound) and Lazarus/FPC brazilian community for inspiration!
 
 
 
