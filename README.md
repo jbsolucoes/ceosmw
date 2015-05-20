@@ -7,7 +7,7 @@ CeosMW - JSONRPC n-tier middleware
 
 Version 0.0.3
 
-**CeosMW** is a package of Lazarus/FPC components for communication using JSONRPC 2.0 protocol (http://www.jsonrpc.org). This implements a client and server layers to an n-tier solution.
+**CeosMW** is a package of Lazarus/FPC components for communication using JSON, with option of using JSONRPC 2.0 protocol (http://www.jsonrpc.org). This implements a client and server layers to an n-tier solution.
 
 **TCeosServer** - Server component to process JSONRPC requests. Compatible with all programming languages that implement JSONRPC.
 
