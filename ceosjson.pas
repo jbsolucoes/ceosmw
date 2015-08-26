@@ -162,7 +162,7 @@ begin
   isprejson := false;
   try
     try
-      isprejson := (trim(Value)[0] = '{') or (trim(Value)[0] = '[');
+      isprejson := (trim(Value)[1] = '{') or (trim(Value)[1] = '[');
 
       if isprejson then
         jdata :=  GetJSON(Value)

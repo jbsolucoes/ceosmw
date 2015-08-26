@@ -26,7 +26,6 @@
       <Unit2>
         <Filename Value="appmethods.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="199"/>
         <CursorPos X="17" Y="86"/>
         <UsageCount Value="21"/>
@@ -34,16 +33,27 @@
       </Unit2>
       <Unit3>
         <Filename Value="..\..\ceosjson.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="32" Y="10"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="152"/>
+        <CursorPos X="60" Y="165"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit3>
     </Units>
-    <JumpHistory Count="1">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
         <Filename Value="appmethods.pas"/>
         <Caret Line="185" Column="7" TopLine="10"/>
       </Position1>
+      <Position2>
+        <Filename Value="..\..\ceosjson.pas"/>
+        <Caret Line="10" Column="32"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\..\ceosjson.pas"/>
+        <Caret Line="165" Column="30" TopLine="152"/>
+      </Position3>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
