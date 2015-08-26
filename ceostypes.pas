@@ -60,10 +60,51 @@ type
 
   function GetJSONArray(AArray: array of variant): TJSONArray;
 
+  //default jsonrpc result response
+  function JSONRPCResult(const AResult: TJSONData; const AID: integer = -1): TCeosResponseContent;
+  //default jsonrpc error response
+  function JSONRPCError(const ACode: integer; const AMessage: string; AID: integer = -1): TCeosResponseContent;
+
 
 implementation
 
 uses ceosconsts;
+
+function JSONRPCResult(const AResult: TJSONData; const AID: integer = -1): TCeosResponseContent;
+var
+  joResult: TCeosResponseContent;
+  //s: string;
+begin
+  joResult := TCeosResponseContent.create;
+
+  joResult.Add('jsonrpc',JSONRPC_VERSION);
+  joResult.Add('result',AResult);
+  joResult.Add('id',AID);
+
+  result := joResult;
+
+  //s := joResult.AsJSON;
+
+  //s := '';
+end;
+
+function JSONRPCError(const ACode: integer; const AMessage: string; AID: integer = -1): TCeosResponseContent;
+var
+  jsonerror: TJSONObject;
+  joResult: TCeosResponseContent;
+begin
+  jsonerror := TJSONObject.Create();
+  (jsonerror as TJSONObject).Add('code',ACode);
+  (jsonerror as TJSONObject).Add('message',AMessage);
+
+  joResult := TCeosResponseContent.create;
+  joResult.Add('jsonrpc',JSONRPC_VERSION);
+  joResult.Add('error',jsonerror);
+  joResult.Add('id',AID);
+
+  result := joResult;
+end;
+
 
 function GetVariantType(const v: variant): string;
 begin

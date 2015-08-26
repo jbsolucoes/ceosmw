@@ -47,12 +47,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -82,7 +76,6 @@
       <Unit0>
         <Filename Value="serverdb.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="serverdb"/>
       </Unit0>
       <Unit1>
         <Filename Value="unit1.pas"/>
@@ -95,7 +88,6 @@
       <Unit2>
         <Filename Value="..\Ceos\CeosMW\ceosconst.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ceosconst"/>
       </Unit2>
       <Unit3>
         <Filename Value="jsonlib.pas"/>
@@ -139,12 +131,8 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
       <CustomOptions Value="-dDEBUG
 -dUseCThreads"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

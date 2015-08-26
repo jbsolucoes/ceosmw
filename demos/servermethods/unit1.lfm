@@ -8,7 +8,7 @@ object Form1: TForm1
   ClientWidth = 925
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.4.2.0'
   object btnStart: TButton
     Left = 104
     Height = 25

@@ -19,7 +19,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, fpjson,
-  variants, jsonparser, fphttpserver, ceostypes, ceosconsts;
+  variants, jsonparser, fphttpserver, ceostypes, ceosconsts, ceosservermethods;
 
 type
   THTTPServerThread = class;
@@ -88,6 +88,7 @@ type
   public
     constructor Create(APort: word; const AThreaded: boolean;
         const AOnRequest: THTTPServerRequestHandler; const AOnException: TOnCeosException);
+    destructor Destroy; override;
     procedure Execute; override;
     procedure DoTerminate; override;
     property Active: boolean read FActive write FActive;
@@ -97,10 +98,6 @@ type
 
   //Do Parse of Request content
   procedure DoParseRequest(var ARequest: TCeosRequestContent; AJSONString: TJSONStringType);
-  //default jsonrpc result response
-  function JSONRPCResult(const AResult: TJSONData; const AID: integer = -1): TCeosResponseContent;
-  //default jsonrpc error response
-  function JSONRPCError(const ACode: integer; const AMessage: string; AID: integer = -1): TCeosResponseContent;
 
 procedure Register;
 
@@ -127,34 +124,6 @@ begin
     parser.free;
     parser := nil;
   end;
-end;
-
-function JSONRPCResult(const AResult: TJSONData; const AID: integer = -1): TCeosResponseContent;
-var
-  joResult: TCeosResponseContent;
-begin
-  joResult := TCeosResponseContent.create;
-
-  joResult.Add('jsonrpc',JSONRPC_VERSION);
-  joResult.Add('result',AResult);
-  joResult.Add('id',AID);
-end;
-
-function JSONRPCError(const ACode: integer; const AMessage: string; AID: integer = -1): TCeosResponseContent;
-var
-  jsonerror: TJSONObject;
-  joResult: TCeosResponseContent;
-begin
-  jsonerror := TJSONObject.Create();
-  (jsonerror as TJSONObject).Add('code',ACode);
-  (jsonerror as TJSONObject).Add('message',AMessage);
-
-  joResult := TCeosResponseContent.create;
-  joResult.Add('jsonrpc',JSONRPC_VERSION);
-  joResult.Add('error',jsonerror);
-  joResult.Add('id',AID);
-
-  result := joResult;
 end;
 
 procedure Register;
@@ -222,7 +191,7 @@ var
   iID: integer;
 begin
   ceosRequest   := nil;
-  ceosResponse  := TCeosResponseContent.Create;
+  ceosResponse  := nil;
 
   if ARequest.Method = 'GET' then
   begin
@@ -283,8 +252,12 @@ end;
 
 destructor TCeosServer.Destroy;
 begin
-  FThrdHTTPServer.free;
-  FThrdHTTPServer := nil;
+  if assigned(FThrdHTTPServer) then
+  begin
+    FThrdHTTPServer.Terminate;
+    FThrdHTTPServer.free;
+    FThrdHTTPServer := nil;
+  end;
 
   inherited Destroy;
 end;
@@ -293,7 +266,7 @@ procedure TCeosServer.Start;
 begin
   try
     FThrdHTTPServer := THTTPServerThread.Create(Port, Threaded, @DoOnRequest, OnException);
-
+    //FThrdHTTPServer.FreeOnTerminate := true;
     FActive := FThrdHTTPServer.Active;
 
     if FActive and Assigned(OnStart) then
@@ -340,6 +313,18 @@ begin
   OnException       := AOnException;
 
   inherited Create(False);
+end;
+
+destructor THTTPServerThread.Destroy;
+begin
+  if assigned(FServer) then
+  begin
+    FServer.free;
+    FServer := nil;
+  end;
+
+  inherited Destroy;
+
 end;
 
 procedure THTTPServerThread.Execute;
