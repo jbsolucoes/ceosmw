@@ -12,7 +12,7 @@ interface
 
 uses
   Classes, SysUtils, ceostypes, fpjson, jsonparser, ceosservermethods, ceosjson, db,
-  BufDataSet, sqldb, mssqlconn;
+  BufDataSet, sqldb, mssqlconn, fgl;
 
 type
 
@@ -21,6 +21,7 @@ type
   TCeosMethods = class(TCeosServerMethods)
 
   private
+
 
   published
     //exemplo metodos
@@ -31,6 +32,10 @@ type
     //exemplo de trafego de objetos json
     function GetObj(Request: TCeosRequestContent): TJSONStringType;
     function SetObj(Request: TCeosRequestContent): TJSONStringType;
+
+    //json list serialization
+    function GetObjList(Request: TCeosRequestContent): TJSONStringType;
+    function SetObjList(Request: TCeosRequestContent): TJSONStringType;
 
     //exemplo de transferencia de datasets
     function DatasetJSON(Request: TCeosRequestContent): TJSONStringType;
@@ -49,7 +54,79 @@ type
     property Name: string read FName write FName;
   end;
 
+  { TList }
+
+  generic TList<T> = class
+    Items: array of T;
+    procedure Add(Value: T);
+  end;
+
+   { TPessoa }
+
+   TPessoa = class(TCollectionItem)
+   private
+     FIdade: integer;
+     FNome: string;
+   public
+     constructor Create(ACollection: TCollection); override;
+   published
+     property Idade: integer read FIdade write FIdade;
+     property Nome: string read FNome write FNome;
+   end;
+
+   { TListaPessoas }
+
+   TListaPessoas = class(TCollection)
+   private
+     function GetItems(Index: integer): TPessoa;
+     procedure SetItems(Index: integer; AValue: TPessoa);
+   public
+     constructor Create;
+   public
+     function Add: TPessoa;
+     property Items[Index: integer]: TPessoa read GetItems write SetItems; default;
+   end;
+
+
 implementation
+
+{ TListaPessoas }
+
+function TListaPessoas.GetItems(Index: integer): TPessoa;
+begin
+  Result := TPessoa(inherited Items[Index]);
+end;
+
+procedure TListaPessoas.SetItems(Index: integer; AValue: TPessoa);
+begin
+  Items[Index].Assign(AValue);
+end;
+
+constructor TListaPessoas.Create;
+begin
+  inherited Create(TPessoa);
+end;
+
+function TListaPessoas.Add: TPessoa;
+begin
+  Result := inherited Add as TPessoa;
+end;
+
+{ TPessoa }
+
+constructor TPessoa.Create(ACollection: TCollection);
+begin
+  if Assigned(ACollection) then
+    inherited Create(ACollection);
+end;
+
+{ TList }
+
+procedure TList.Add(Value: T);
+begin
+  SetLength(Items, Length(Items) + 1);
+  Items[Length(Items) - 1] := Value;
+end;
 
 
 { TCeosMethods }
@@ -103,6 +180,55 @@ begin
       result := s;
     finally
       freeandnil(pessoa);
+    end;
+  except on e:exception do
+    raise exception.create(e.message);
+  end;
+end;
+
+function TCeosMethods.GetObjList(Request: TCeosRequestContent): TJSONStringType;
+var
+  Pessoas: TListaPessoas;
+  Pessoa: TPessoa;
+begin
+  try
+    Pessoas := TListaPessoas.Create;
+
+    Pessoa := Pessoas.Add;
+    Pessoa.Idade := 20;
+    Pessoa.Nome := 'JB';
+
+    Pessoa := Pessoas.Add;
+    Pessoa.Idade := 20;
+    Pessoa.Nome := 'FERNANDO';
+
+    result := ObjToJSON(Pessoas);
+
+  finally
+    Pessoas.free;
+  end;
+end;
+
+function TCeosMethods.SetObjList(Request: TCeosRequestContent): TJSONStringType;
+var
+  listapessoas: TListaPessoas;
+  s: string;
+  i: integer;
+begin
+  listapessoas := TListaPessoas.Create;
+
+  try
+    JSONToObject(Request.Args[0].AsJSON, tobject(listapessoas));
+
+    try
+      s := '';
+
+      for i := 0 to listapessoas.Count -1 do
+        s := s + format('nome %s id %d ,',[listapessoas.Items[i].Nome, listapessoas.Items[i].Idade]);
+
+      result := s;
+    finally
+      freeandnil(listapessoas);
     end;
   except on e:exception do
     raise exception.create(e.message);
