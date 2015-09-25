@@ -19,7 +19,7 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, fpjson,
-  variants, jsonparser, fphttpserver, ceostypes, ceosconsts, ceosservermethods;
+  variants, jsonparser, fphttpserver, ceostypes, ceosconsts;
 
 type
   THTTPServerThread = class;
