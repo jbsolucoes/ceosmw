@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="6">
+      <Unit0>
+        <Filename Value="ceosdaemon.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="52" Y="13"/>
+        <UsageCount Value="20"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="ceosdaemonmapper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ceosmapper"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="42" Y="17"/>
+        <UsageCount Value="20"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="svcdaemon.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="CeosDaemon"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="21" Y="4"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\ceosserver.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="196"/>
+        <CursorPos X="23" Y="212"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\ceostypes.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="40"/>
+        <CursorPos X="47" Y="50"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="appmethods.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="299"/>
+        <CursorPos X="28" Y="147"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+    </Units>
+    <JumpHistory Count="18" HistoryIndex="17">
+      <Position1>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="10" Column="28"/>
+      </Position1>
+      <Position2>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="42" Column="15" TopLine="23"/>
+      </Position2>
+      <Position3>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="27" Column="56" TopLine="17"/>
+      </Position3>
+      <Position4>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="30" Column="56" TopLine="20"/>
+      </Position4>
+      <Position5>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="24" TopLine="18"/>
+      </Position5>
+      <Position6>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="31" Column="11" TopLine="26"/>
+      </Position6>
+      <Position7>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="48" Column="44" TopLine="8"/>
+      </Position7>
+      <Position8>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="44" Column="28" TopLine="32"/>
+      </Position8>
+      <Position9>
+        <Filename Value="appmethods.pas"/>
+        <Caret Line="18" Column="41" TopLine="82"/>
+      </Position9>
+      <Position10>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="48" Column="33" TopLine="39"/>
+      </Position10>
+      <Position11>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="59" Column="33" TopLine="44"/>
+      </Position11>
+      <Position12>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="52" Column="16" TopLine="38"/>
+      </Position12>
+      <Position13>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="25" Column="38" TopLine="11"/>
+      </Position13>
+      <Position14>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="33" Column="6" TopLine="11"/>
+      </Position14>
+      <Position15>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="8" Column="76"/>
+      </Position15>
+      <Position16>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="66" Column="16" TopLine="43"/>
+      </Position16>
+      <Position17>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="52" Column="18" TopLine="24"/>
+      </Position17>
+      <Position18>
+        <Filename Value="svcdaemon.pas"/>
+        <Caret Line="30" Column="27" TopLine="20"/>
+      </Position18>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

@@ -1,0 +1,17 @@
+object CeosDaemon: TCeosDaemon
+  OldCreateOrder = False
+  OnStart = DataModuleStart
+  OnStop = DataModuleStop
+  Height = 243
+  HorizontalOffset = 460
+  VerticalOffset = 311
+  Width = 288
+  object CeosServer1: TCeosServer
+    Port = 8081
+    OnRequest = CeosServer1Request
+    OnStart = CeosServer1Start
+    OnStop = CeosServer1Stop
+    left = 101
+    top = 76
+  end
+end

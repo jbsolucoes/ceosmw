@@ -1,0 +1,19 @@
+object ceosmapper: Tceosmapper
+  DaemonDefs = <  
+    item
+      DaemonClassName = 'TCeosDaemon'
+      Name = 'ceosdaemon'
+      Description = 'Ceos Daemon'
+      DisplayName = 'Ceos Daemon'
+      Options = [doAllowStop, doInteractive]
+      WinBindings.Dependencies = <>
+      WinBindings.StartType = stManual
+      WinBindings.WaitHint = 0
+      WinBindings.IDTag = 0
+      WinBindings.ServiceType = stWin32
+      WinBindings.ErrorSeverity = esIgnore
+      LogStatusReport = False
+    end>
+  left = 238
+  top = 150
+end
