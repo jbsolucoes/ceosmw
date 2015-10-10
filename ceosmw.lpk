@@ -3,26 +3,22 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="CeosMW"/>
+    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <Author Value="josebenedito@gmail.com"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
+        <OtherUnitFiles Value="."/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Description Value="CeosMW - JSONRPC n-tier middleware
 https://github.com/jbsolucoes/ceosmw"/>
     <License Value="This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."/>
     <Version Release="3"/>
-    <Files Count="3">
+    <Files Count="4">
       <Item1>
         <Filename Value="ceosclient.pas"/>
         <HasRegisterProc Value="True"/>
@@ -37,8 +33,11 @@ https://github.com/jbsolucoes/ceosmw"/>
         <Filename Value="ceostypes.pas"/>
         <UnitName Value="ceostypes"/>
       </Item3>
+      <Item4>
+        <Filename Value="ceosservermethods.pas"/>
+        <UnitName Value="ceosservermethods"/>
+      </Item4>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="LCL"/>

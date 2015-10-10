@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="138"/>
-        <CursorPos X="40" Y="19"/>
+        <TopLine Value="104"/>
+        <CursorPos X="20" Y="120"/>
         <UsageCount Value="109"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -176,10 +176,6 @@
         <UsageCount Value="18"/>
       </Unit25>
     </Units>
-    <OtherDefines Count="2">
-      <Define0 Value="DEBUG"/>
-      <Define1 Value="UseCThreads"/>
-    </OtherDefines>
     <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="unit1.pas"/>

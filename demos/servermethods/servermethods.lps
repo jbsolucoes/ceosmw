@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="servermethods.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -19,16 +19,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="7" Y="4"/>
         <UsageCount Value="29"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="appmethods.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="199"/>
-        <CursorPos X="13" Y="216"/>
+        <CursorPos X="67" Y="19"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -53,8 +53,15 @@
         <CursorPos X="3" Y="522"/>
         <UsageCount Value="12"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="..\..\ceosserver.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="198"/>
+        <CursorPos X="49" Y="211"/>
+        <UsageCount Value="10"/>
+      </Unit6>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="appmethods.pas"/>
         <Caret Line="185" Column="7" TopLine="10"/>
@@ -123,6 +130,14 @@
         <Filename Value="appmethods.pas"/>
         <Caret Line="216" Column="23" TopLine="200"/>
       </Position17>
+      <Position18>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="4" Column="7"/>
+      </Position18>
+      <Position19>
+        <Filename Value="appmethods.pas"/>
+        <Caret Line="14" Column="63"/>
+      </Position19>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

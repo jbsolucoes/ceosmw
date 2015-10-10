@@ -123,9 +123,14 @@ begin
 
   jsonDataset := DataSetToJSON(DatasetDemo);
 
+  { //old alternate form
   joStr := TJSONString.Create(jsonDataset);
 
+  old alternate form
   AResponse.SetResultContent(jostr, ARequest.ID);
+  }
+
+  AResponse.ResultContent.AsString := jsonDataset;
 
   if cbxRequestsCount.checked then
   begin

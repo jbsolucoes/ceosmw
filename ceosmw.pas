@@ -7,13 +7,13 @@ unit CeosMW;
 interface
 
 uses
-  CeosClient, ceosserver, ceostypes, LazarusPackageIntf;
+  ceosclient, ceosserver, ceostypes, ceosservermethods, LazarusPackageIntf;
 
 implementation
 
 procedure Register;
 begin
-  RegisterUnit('CeosClient', @CeosClient.Register);
+  RegisterUnit('ceosclient', @ceosclient.Register);
   RegisterUnit('ceosserver', @ceosserver.Register);
 end;
 

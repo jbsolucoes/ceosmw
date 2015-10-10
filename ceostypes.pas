@@ -53,7 +53,11 @@ type
     public
       procedure SetResultContent(const AResult: TJSONData; const AID: integer);
 
+      constructor Create;
       destructor Destroy; override;
+
+      property ID: integer read GetID write SetID;
+      property ResultContent: TJSONData read GetResult write SetResult;
   end;
 
   function GetVariantType(const v: variant): string;
@@ -223,6 +227,15 @@ begin
   Self.Add('jsonrpc',JSONRPC_VERSION);
   Self.Add('result',AResult);
   Self.Add('id',AID);
+end;
+
+constructor TCeosResponseContent.Create;
+begin
+  inherited Create;
+
+  Self.Add('jsonrpc',JSONRPC_VERSION);
+  Self.Add('result','');
+  Self.Add('id',0);
 end;
 
 destructor TCeosResponseContent.Destroy;

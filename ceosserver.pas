@@ -99,6 +99,9 @@ type
   //Do Parse of Request content
   procedure DoParseRequest(var ARequest: TCeosRequestContent; AJSONString: TJSONStringType);
 
+var
+  UsingServerMethods: boolean = false;
+
 procedure Register;
 
 implementation
@@ -205,6 +208,12 @@ begin
   try
     try
       DoParseRequest(ceosRequest, ARequest.Content);
+
+      if not UsingServerMethods then
+      begin
+        ceosResponse := TCeosResponseContent.create;
+        ceosResponse.ID := ceosRequest.ID;
+      end;
 
       if assigned(OnRequest) then
         OnRequest(Sender,ceosRequest,ceosResponse);

@@ -104,17 +104,13 @@ end;
 
 procedure TForm1.CeosServer1Request(Sender: TObject;
   const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent);
-var
-  joStr: TJSONData;
 const
   str: string = 'SERVER RESPONSE';
 begin
   if cbxVerbose.checked then
     Log(ARequest.AsJSON);
 
-  joStr := TJSONString.Create(str);
-
-  AResponse.SetResultContent(joStr, ARequest.ID);
+  AResponse.ResultContent.AsString := str;
 
   if cbxRequestsCount.checked then
   begin

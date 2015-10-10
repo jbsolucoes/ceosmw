@@ -12,7 +12,7 @@ interface
 {$M+}
 
 uses
-  Classes, SysUtils, variants, ceostypes, fpjson, jsonparser;
+  Classes, SysUtils, variants, ceostypes, fpjson, jsonparser, ceosserver;
 
 type
 
@@ -151,6 +151,9 @@ function IsSelect(ASQL: string): boolean;
 begin
   result := (pos('SELECT',UpperCase(ASQL)) > 0);
 end;
+
+initialization
+  UsingServerMethods := true;
 
 end.
 
