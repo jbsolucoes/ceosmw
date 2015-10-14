@@ -76,7 +76,11 @@ begin
         parser := TJSONParser.Create(sResult);
 
         try
-          Response := JSONRPCResult(parser.parse,Request.ID);
+          Response := TCeosResponseContent.Create;
+          Response.ID := Request.ID;
+          Response.ResultContent := parser.Parse;
+
+          //JSONRPCResult(parser.parse,Request.ID);
         finally
           parser.free;
           parser := nil;
@@ -85,7 +89,10 @@ begin
       else
       begin
         //addlog('result '+ sResult);
-        Response := JSONRPCResult(TJSONString.create(sResult),Request.ID);
+        //Response := JSONRPCResult(TJSONString.create(sResult),Request.ID);
+        Response := TCeosResponseContent.Create;
+        Response.ID := Request.ID;
+        Response.ResultContent := TJSONString.create(sResult);
       end;
     end
     else
@@ -118,6 +125,12 @@ end;
 procedure TCeosServerMethods.ProcessRequest(ARequest: TCeosRequestContent; var Response: TCeosResponseContent);
 begin
   try
+    if Response <> nil then
+    begin
+      Response.free;
+      response := nil;
+    end;
+
     if ARequest <> nil then
       Call(ARequest, Response)
     else

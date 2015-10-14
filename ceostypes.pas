@@ -48,8 +48,10 @@ type
     private
       function GetID: integer;
       function GetResult: TJSONData;
+      function GetVersion: string;
       procedure SetID(AValue: integer);
       procedure SetResult(AValue: TJSONData);
+      procedure SetVersion(AValue: string);
     public
       procedure SetResultContent(const AResult: TJSONData; const AID: integer);
 
@@ -58,6 +60,7 @@ type
 
       property ID: integer read GetID write SetID;
       property ResultContent: TJSONData read GetResult write SetResult;
+      property Version: string read GetVersion write SetVersion;
   end;
 
   function GetVariantType(const v: variant): string;
@@ -81,9 +84,9 @@ var
 begin
   joResult := TCeosResponseContent.create;
 
-  joResult.Add('jsonrpc',JSONRPC_VERSION);
-  joResult.Add('result',AResult);
-  joResult.Add('id',AID);
+  joResult.Version := JSONRPC_VERSION;
+  joResult.ResultContent := AResult;
+  joResult.ID := AID;
 
   result := joResult;
 
@@ -102,9 +105,9 @@ begin
   (jsonerror as TJSONObject).Add('message',AMessage);
 
   joResult := TCeosResponseContent.create;
-  joResult.Add('jsonrpc',JSONRPC_VERSION);
+  //joResult.Add('jsonrpc',JSONRPC_VERSION);
   joResult.Add('error',jsonerror);
-  joResult.Add('id',AID);
+  joResult.ID := AID;
 
   result := joResult;
 end;
@@ -199,6 +202,17 @@ begin
   {$WARNINGS ON}
 end;
 
+function TCeosResponseContent.GetVersion: string;
+begin
+  {$WARNINGS OFF}
+  if TJSONObject(Self).Find('jsonrpc') <> nil then
+    result := TJSONObject(Self).Find('jsonrpc').AsString
+  else
+    result := JSONRPC_VERSION;
+  {$WARNINGS ON}
+
+end;
+
 procedure TCeosResponseContent.SetID(AValue: integer);
 begin
   {$WARNINGS OFF}
@@ -215,8 +229,20 @@ begin
   if TJSONObject(Self).Find('result') <> nil then
     TJSONObject(Self).Delete('result');
 
-  TJSONObject(Self).Add('result',AValue as TJSONObject);
+  TJSONObject(Self).Add('result',AValue);
+  //TJSONObject(Self).Add('result',AValue as TJSONObject);
   {$WARNINGS ON}
+end;
+
+procedure TCeosResponseContent.SetVersion(AValue: string);
+begin
+  {$WARNINGS OFF}
+  if TJSONObject(Self).Find('jsonrpc') <> nil then
+    TJSONObject(Self).Find('jsonrpc').AsString := AValue
+  else
+    TJSONObject(Self).Add('jsonrpc',AValue);
+  {$WARNINGS ON}
+
 end;
 
 procedure TCeosResponseContent.SetResultContent(const AResult: TJSONData;
@@ -224,18 +250,17 @@ procedure TCeosResponseContent.SetResultContent(const AResult: TJSONData;
 begin
   Self.Clear;
 
-  Self.Add('jsonrpc',JSONRPC_VERSION);
-  Self.Add('result',AResult);
-  Self.Add('id',AID);
+  Self.Version := JSONRPC_VERSION;
+  Self.ResultContent := AResult;
+  Self.ID := AID;
 end;
 
 constructor TCeosResponseContent.Create;
 begin
   inherited Create;
 
-  Self.Add('jsonrpc',JSONRPC_VERSION);
-  Self.Add('result','');
-  Self.Add('id',0);
+  Self.Version := JSONRPC_VERSION;
+  Self.ID := 0;
 end;
 
 destructor TCeosResponseContent.Destroy;
