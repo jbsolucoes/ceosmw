@@ -644,6 +644,10 @@ begin
       VField := AFields[I];
       VFieldType := GetJSONType(VField.DataType);
       VFieldName := VField.FieldName;
+
+      if (VFieldName='') or (copy(VFieldName,1,1)='_') then
+         VFieldName:=Format('Field%3.3d', [i]);
+
       if (VFieldType = JSON_NULL) or VField.IsNull then
       begin
         VJSON.Add(VFieldName);
@@ -690,6 +694,7 @@ var
   i: integer;
   sFields, sData, FieldType, JsonTyp: string;
   List: TStringList;
+  sFieldName,sDisplayLabel: string;
 begin
   List := TStringList.Create;
 
@@ -709,15 +714,23 @@ begin
       begin
         GetFieldTypeInfo(DataSet.Fields[i], FieldType, JsonTyp);
 
+        sFieldName:=Dataset.Fields[i].FieldName;
+        sDisplayLabel:=Dataset.Fields[i].DisplayLabel;
+        if (trim(sFieldName)='') or (copy(trim(sFieldName),1,1)='_') then
+        begin
+          sFieldName:=Format('Field%3.3d', [i]);
+          sDisplayLabel:=sFieldName;
+        end;
+
         sFields := sFields + format(
           '{"%s":"%s","%s":%s,"%s":"%s","%s":%s,"%s":"%s","%s":%s,"%s":"%s"}',
           [cstJsonType, JsonTyp,
            cstFieldIndex, IntToStr(DataSet.Fields[i].Index),
            cstFieldType, FieldType,
            cstFieldSize, iif(FieldType = 'Integer', '0', IntToStr(DataSet.Fields[i].Size)),
-           cstFieldName, Dataset.Fields[i].FieldName,
+           cstFieldName, sFieldName,
            cstRequired, BoolStr(DataSet.Fields[i].Required),
-           cstDisplayLabel, Dataset.Fields[i].DisplayLabel]);
+           cstDisplayLabel, sDisplayLabel]);
 
         if i < (dataset.FieldCount - 1) then
           sFields := sFields + ',';
@@ -799,4 +812,3 @@ end;
 
 
 end.
-
