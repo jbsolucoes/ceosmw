@@ -33,6 +33,9 @@ type
   function DataSetToJSON(DataSet: TDataSet; ReturnFields: boolean = True;
     ReturnData: boolean = True): string;
 
+  function DataSetToJSONData(DataSet: TDataSet; ReturnFields: boolean = True;
+    ReturnData: boolean = True): TJSONData;
+
   {JSON format to dataset}
   function JSONToDataset(var dataset: TDataSet; JsonObject: TJSONObject): boolean;
 
@@ -777,6 +780,22 @@ begin
     List.Free;
     DataSet.First;
     DataSet.EnableControls;
+  end;
+end;
+
+function DataSetToJSONData(DataSet: TDataSet; ReturnFields: boolean = True;
+  ReturnData: boolean = True): TJSONData;
+var
+  jostr: string;
+  jp: TJSONParser;
+begin
+  try
+    jostr := DataSetToJSON(Dataset, ReturnFields,ReturnData);
+    jp := TJSONParser.Create(jostr);
+    result := jp.Parse;
+  finally
+    jp.free;
+    jp := nil;
   end;
 end;
 
