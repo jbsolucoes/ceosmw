@@ -274,8 +274,11 @@ end;
 procedure TCeosServer.Start;
 begin
   try
+    if Assigned(FThrdHTTPServer) then
+      FThrdHTTPServer.free;
+
     FThrdHTTPServer := THTTPServerThread.Create(Port, Threaded, @DoOnRequest, OnException);
-    //FThrdHTTPServer.FreeOnTerminate := true;
+
     FActive := FThrdHTTPServer.Active;
 
     if FActive and Assigned(OnStart) then
