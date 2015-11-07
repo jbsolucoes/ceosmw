@@ -110,7 +110,7 @@ begin
   if cbxVerbose.checked then
     Log(ARequest.AsJSON);
 
-  AResponse.ResultContent.AsString := str;
+  AResponse.ResultContent := tjsonstring.Create(str);
 
   if cbxRequestsCount.checked then
   begin
