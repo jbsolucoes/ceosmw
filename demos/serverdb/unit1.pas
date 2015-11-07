@@ -58,7 +58,7 @@ var
 
 implementation
 
-uses ceosconsts, ceosmessages, jsonlib;
+uses ceosconsts, ceosmessages, ceosjson;
 
 {$R *.lfm}
 
@@ -115,22 +115,12 @@ end;
 procedure TForm1.CeosServer1Request(Sender: TObject;
   const ARequest: TCeosRequestContent; var AResponse: TCeosResponseContent);
 var
-  joStr: TJSONData;
-  jsonDataset: string;
+  jo: TJSONData;
 begin
   if cbxVerbose.checked then
     Log(ARequest.AsJSON);
 
-  jsonDataset := DataSetToJSON(DatasetDemo);
-
-  { //old alternate form
-  joStr := TJSONString.Create(jsonDataset);
-
-  old alternate form
-  AResponse.SetResultContent(jostr, ARequest.ID);
-  }
-
-  AResponse.ResultContent.AsString := jsonDataset;
+  AResponse.ResultContent := DataSetToJSONData(DatasetDemo);
 
   if cbxRequestsCount.checked then
   begin
@@ -179,7 +169,9 @@ procedure TForm1.CreateDatasetDemo;
 var
   i: integer;
 begin
+  DatasetDemo.close;
   DatasetDemo.CreateDataset;
+  DatasetDemo.open;
 
   for i := 0 to 30 do
   begin
