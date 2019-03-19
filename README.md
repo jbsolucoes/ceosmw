@@ -1,7 +1,7 @@
 ceosmw
 ======
 
-<img src="http://jbsolucoes.net/ceosmw/ceos.png">
+<img src="http://jbsolucoes.net/ceosserver/ceos.png">
 
 CeosMW - JSONRPC n-tier middleware
 
